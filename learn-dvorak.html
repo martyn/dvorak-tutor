@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <script type="text/javascript" href='./tutor.js'></script>
+    <script>
+      //var tutor = new Tutor();
+    </script>
+    <style>
+      #entry-area {
+        width: 500px;
+        height: 500px;
+        float: left;
+      }
+      #reader-window {
+        width: 500px;
+        height: 500px;
+        float: left;
+        background-color: grey;
+        margin: 0px;
+      }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+    <script>
+      function getOS() {
+        var OSName="Unknown OS";
+        if (navigator.appVersion.indexOf("Win")!==-1) OSName="Windows";
+        if (navigator.appVersion.indexOf("Mac")!==-1) OSName="Mac";
+        if (navigator.appVersion.indexOf("X11")!==-1) OSName="Unix";
+        if (navigator.appVersion.indexOf("Linux")!==-1) OSName="Linux";
+        return OSName;
+      }
+
+      function getKeyboardLayout() {
+        var keyboardLayout = "Standard US";
+
+        return keyboardLayout;
+      }
+      $(document).ready(function() {
+        var os = getOS();
+        var keyboardLayout = getKeyboardLayout();
+        $("#entry-area").focus();
+
+        $("#os-label").text(os);
+        $("#keyboard-layout").text(keyboardLayout);
+//        $("#entry-area").bind("keydown", function(evt) {
+//          console.log(evt);
+//        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Dvorak typing tutor</h1>
+    <p>We've detected you are using <span id="os-label"/> with the <span id="keyboard-layout"></span> layout.</p>
+    <p><span id="keyboard-layout-instructions"></span></p>
+
+    <textarea id="entry-area" placeholder = 'Start typing here'></textarea>
+    <p id="reader-window"></p>
+    <script src="./3rdparty/dvorakator/build/final.js" type="text/javascript"></script>
+  </body>
+</html>

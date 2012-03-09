@@ -1,0 +1,1 @@
+../jquerytext.js

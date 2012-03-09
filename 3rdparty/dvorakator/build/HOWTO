@@ -1,0 +1,12 @@
+This is a folder containing useful files for creating bookmarklets.
+
+Copy it into any project directory and do the following:
+
+1. Edit "urls" to point to files to concatenate, as in the example.
+2. Run "./compose.py urls > final.js".
+
+"final.js" now contains all the text in all the files in "urls", wrapped in an
+anonymous function to avoid namespace conflicts.
+
+The file "oneliner" will be the bookmarklet URL. Inside it, replace "URL" with
+the online URL after uploading ("http://XXX/final.js"), and there it is!

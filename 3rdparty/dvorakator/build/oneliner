@@ -1,0 +1,1 @@
+javascript:var%20s=document.createElement('script');s.type='text/javascript';s.src='URL';document.body.appendChild(s);void(0);
