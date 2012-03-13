@@ -46,10 +46,9 @@
   -webkit-transition: all 0.4s; /* Safari and Chrome */
   -o-transition: all 0.4s; /* Opera */
 }
-.key.pressed {
+.pressed {
   background-color: blue;
 }
-
 .key > .main {
 
 }
@@ -123,11 +122,11 @@ $(document).ready(function() {
   $("#keyboard-layout").text(keyboardLayout);
   $("#entry-area").bind("keydown", function(evt) {
     var charCode = String.fromCharCode(evt.keyCode);
-    $keyMap[charCode].css("background-color", "blue");
+    $keyMap[charCode].addClass("pressed");
   });
   $("#entry-area").bind("keyup", function(evt) {
     var charCode = String.fromCharCode(evt.keyCode);
-    $keyMap[charCode].css("background-color", "#fff");
+    $keyMap[charCode].removeClass("pressed");
   });
 
 });

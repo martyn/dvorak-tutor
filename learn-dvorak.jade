@@ -46,6 +46,13 @@ html
         padding: 0.5%;
         height: 11.75%;
         background-color: #EEE;
+        transition: all 0.4s;
+        -moz-transition: all 0.4s; /* Firefox 4 */
+        -webkit-transition: all 0.4s; /* Safari and Chrome */
+        -o-transition: all 0.4s; /* Opera */
+      }
+      .pressed {
+        background-color: blue;
       }
       .key > .main {
         
@@ -122,11 +129,11 @@ html
         $("#keyboard-layout").text(keyboardLayout);
         $("#entry-area").bind("keydown", function(evt) {
           var charCode = String.fromCharCode(evt.keyCode);
-          $keyMap[charCode].css("background-color", "blue");
+          $keyMap[charCode].addClass("pressed");
         });
         $("#entry-area").bind("keyup", function(evt) {
           var charCode = String.fromCharCode(evt.keyCode);
-          $keyMap[charCode].css("background-color", "#fff");
+          $keyMap[charCode].removeClass("pressed");
         });
 
       });
