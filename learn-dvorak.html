@@ -41,7 +41,15 @@
   padding: 0.5%;
   height: 11.75%;
   background-color: #EEE;
+  transition: all 0.4s;
+  -moz-transition: all 0.4s; /* Firefox 4 */
+  -webkit-transition: all 0.4s; /* Safari and Chrome */
+  -o-transition: all 0.4s; /* Opera */
 }
+.key.pressed {
+  background-color: blue;
+}
+
 .key > .main {
 
 }
