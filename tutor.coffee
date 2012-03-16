@@ -70,23 +70,46 @@ class Tutor
     }
 
   swap : (a, b) ->
-    content = b.html()
-    b.html(a.html())
-    a.html(content)
+    if(a.data('swapped')) 
+      return
+    
+    if(b.data('swapped')) 
+      return
+    
+    a.data('swapped', true)
+    b.data('swapped', true)
+    a.css('background-color', 'red')
+    b.css('background-color', 'blue')
+    debugger
+    parent = a.parent()
+    marker = $("<div id='marker' style='width: 20px; height: 20px; background-color: yellow;'/>")
+    marker.insertBefore(b)
+    b.insertAfter(a)
+    a.insertAfter(marker)
+    marker.remove()
 
+  # this is less straightforward than initially thought
   rearrangeQwertyToDvorak : (keys) ->
-    #for from, to of @dvorakMap
-      #if(keys[from] && keys[to])
-      #this.swap(keys[from], keys[to]) 
+    for from, to of @dvorakMap
+      if(keys[from] && keys[to])
+        console.log("Swapping " + from + " to " + to);
+        #this.swap(keys[from], keys[to])
+
   start : ($canvas) ->
+    self = this
     canvas = $canvas[0]
-    #$(window).resize(
-    canvas.width=$canvas.width()
-    canvas.height=$canvas.height()
+    resize = ->
+      canvas.width=$canvas.width()
+      canvas.height=$canvas.height()
+      self.redraw(canvas)
+    $(window).resize(resize)
+    resize()
+
+  redraw : (canvas) ->
     context = canvas.getContext('2d')
     x = 150
     y = 100
- 
+
     context.font = "40pt Calibri"
     context.fillStyle = "#0000ff"
     context.fillText("Hello World!", x, y)

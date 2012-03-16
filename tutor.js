@@ -77,19 +77,52 @@ Tutor = (function() {
   }
 
   Tutor.prototype.swap = function(a, b) {
-    var content;
-    content = b.html();
-    b.html(a.html());
-    return a.html(content);
+    var marker, parent;
+    if (a.data('swapped')) return;
+    if (b.data('swapped')) return;
+    a.data('swapped', true);
+    b.data('swapped', true);
+    a.css('background-color', 'red');
+    b.css('background-color', 'blue');
+    debugger;
+    parent = a.parent();
+    marker = $("<div id='marker' style='width: 20px; height: 20px; background-color: yellow;'/>");
+    marker.insertBefore(b);
+    b.insertAfter(a);
+    a.insertAfter(marker);
+    return marker.remove();
   };
 
-  Tutor.prototype.rearrangeQwertyToDvorak = function(keys) {};
+  Tutor.prototype.rearrangeQwertyToDvorak = function(keys) {
+    var from, to, _ref, _results;
+    _ref = this.dvorakMap;
+    _results = [];
+    for (from in _ref) {
+      to = _ref[from];
+      if (keys[from] && keys[to]) {
+        _results.push(console.log("Swapping " + from + " to " + to));
+      } else {
+        _results.push(void 0);
+      }
+    }
+    return _results;
+  };
 
   Tutor.prototype.start = function($canvas) {
-    var canvas, context, x, y;
+    var canvas, resize, self;
+    self = this;
     canvas = $canvas[0];
-    canvas.width = $canvas.width();
-    canvas.height = $canvas.height();
+    resize = function() {
+      canvas.width = $canvas.width();
+      canvas.height = $canvas.height();
+      return self.redraw(canvas);
+    };
+    $(window).resize(resize);
+    return resize();
+  };
+
+  Tutor.prototype.redraw = function(canvas) {
+    var context, x, y;
     context = canvas.getContext('2d');
     x = 150;
     y = 100;
