@@ -78,3 +78,15 @@ class Tutor
     #for from, to of @dvorakMap
       #if(keys[from] && keys[to])
       #this.swap(keys[from], keys[to]) 
+  start : ($canvas) ->
+    canvas = $canvas[0]
+    #$(window).resize(
+    canvas.width=$canvas.width()
+    canvas.height=$canvas.height()
+    context = canvas.getContext('2d')
+    x = 150
+    y = 100
+ 
+    context.font = "40pt Calibri"
+    context.fillStyle = "#0000ff"
+    context.fillText("Hello World!", x, y)

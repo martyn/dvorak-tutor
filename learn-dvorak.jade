@@ -43,10 +43,11 @@ html
             $keyMap[charCode].removeClass("pressed");
         });
         tutor.rearrangeQwertyToDvorak($keyMap);
+        tutor.start($("canvas.main"))
       });
   body
     canvas.main
-    textarea#entry-area(placeholder='Start typing here')
+    input#entry-area(placeholder='Start typing here')
     #keyboard
       .keyrow.toprow
         .key

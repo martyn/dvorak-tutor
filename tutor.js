@@ -85,6 +85,19 @@ Tutor = (function() {
 
   Tutor.prototype.rearrangeQwertyToDvorak = function(keys) {};
 
+  Tutor.prototype.start = function($canvas) {
+    var canvas, context, x, y;
+    canvas = $canvas[0];
+    canvas.width = $canvas.width();
+    canvas.height = $canvas.height();
+    context = canvas.getContext('2d');
+    x = 150;
+    y = 100;
+    context.font = "40pt Calibri";
+    context.fillStyle = "#0000ff";
+    return context.fillText("Hello World!", x, y);
+  };
+
   return Tutor;
 
 })();
