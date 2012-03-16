@@ -1,0 +1,104 @@
+body
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background-color: black
+  padding: 0
+  margin: 0
+
+#entry-area
+  width: 100%
+  height: 3em
+  border-top: 1px solid black
+  float: left
+  position: fixed
+  bottom: 0px
+  left: 0px
+
+#reader-window
+  width: 100%
+  height: 100%
+  float: left
+
+#keyboard
+  width: 921px
+  height: 367px
+  border: 1px solid black
+  background-color: #CCC
+  padding-left: 10px
+  padding-top: 10px
+  position: fixed
+  bottom: 3em
+
+canvas.main
+  width: 100%
+  height: 100%
+  padding: 0
+  margin: 0
+
+.key
+  z-index: 1
+  float: left
+  width: 5%
+  border: 1px solid black
+  margin-left: 0.5%
+  margin-right: 0.4%
+  margin-top: 0.5%
+  margin-bottom: 0.5%
+  padding: 0.5%
+  height: 11.75%
+  background-color: #EEE
+  transition: all 0.4s
+  -moz-transition: all 0.4s /* Firefox 4 */
+  -webkit-transition: all 0.4s /* Safari and Chrome */
+  -o-transition: all 0.4s /* Opera */
+
+.pressed
+  background-color: blue
+
+.key > .main
+
+.key > .alt
+
+.keyrow
+  clear: both
+
+
+.toprow .key
+  height: 6%
+  width: 5.8%
+
+
+.key.delete
+  width: 8%
+
+
+.key.tab
+  width: 8.00%
+
+
+.key.capslock
+  width: 9.75%
+
+
+.key.enter
+  width: 10.25%
+
+
+.key.shift
+  width: 13.25%
+
+.key.ctrl, .key.rctrl
+  width: 15%
+
+.key.alt, .key.ralt
+  width: 10%
+
+.key.space
+  width: 39.50%
+
+
+
+
