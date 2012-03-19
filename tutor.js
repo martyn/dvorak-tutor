@@ -74,6 +74,7 @@ Tutor = (function() {
       'z': ';',
       '}': '+'
     };
+    this.activeWords = [{filled: '', remaining: 'go', placement: [280, 200], animationTime: 500, callback: this.startLevel(this), dieing: false }];
   }
 
   Tutor.prototype.swap = function(a, b) {
@@ -115,21 +116,78 @@ Tutor = (function() {
     resize = function() {
       canvas.width = $canvas.width();
       canvas.height = $canvas.height();
-      return self.redraw(canvas);
+      return self.redraw(canvas)();
     };
     $(window).resize(resize);
+
+    window.setInterval(this.redraw(canvas), 1);
     return resize();
   };
 
   Tutor.prototype.redraw = function(canvas) {
-    var context, x, y;
-    context = canvas.getContext('2d');
-    x = 150;
-    y = 100;
-    context.font = "40pt Calibri";
-    context.fillStyle = "#0000ff";
-    return context.fillText("Hello World!", x, y);
+    var self = this;
+    return function() {
+      var context, x, y;
+      context = canvas.getContext('2d');
+      x = 150;
+      y = 100;
+      context.font = "40pt Calibri";
+      context.fillStyle = "#999999";
+      context.fillText("Welcome to the dvorak trainer!", x, y);
+
+      context.fillText("Type '",x, y+100);
+      context.fillText(" ' to begin", x+170, y+100);
+
+      for(var i=0; i < self.activeWords.length; i+=1) {
+        var word = self.activeWords[i];
+        context.fillStyle = "#33CC33";
+        context.fillText(word.filled, word.placement[0], word.placement[1]);
+        context.fillStyle = "#3333CC";
+        context.fillText(word.remaining, word.placement[0]+context.measureText(word.filled).width, word.placement[1]);
+      }
+    }
   };
+
+  Tutor.prototype.startLevel = function(self) {
+    return function() {
+      var canvas = $('canvas')[0];
+      var context = canvas.getContext('2d');
+      console.log(context);
+      console.log("Yo dawg beginning");
+      context.fillStyle = "#111111";
+      context.fillRect(0,0,canvas.width, canvas.height);
+      self.activeWords = [
+        {filled: '', remaining: 'someWordX', placement: [580, 200], animationTime: 500, dieing: false },
+        {filled: '', remaining: 'anotherWordY', placement: [550, 50], animationTime: 500, dieing: false },
+        {filled: '', remaining: 'whataword', placement: [550, 150], animationTime: 500, dieing: false },
+        {filled: '', remaining: 'aeoaua', placement: [500, 300], animationTime: 500, dieing: false }
+                        ];
+      console.log(self.activeWords);
+    }
+  }
+
+  Tutor.prototype.charPressed = function(char) {
+    var self = this;
+    for(var i=0; i < this.activeWords.length; i+=1) {
+      var word = this.activeWords[i];
+      var first = word.remaining.charAt(0);
+
+      if(first.toUpperCase() == char.toUpperCase()) {
+        console.log("match!");
+        word.remaining = word.remaining.slice(1, word.remaining.length);
+        word.filled += first;
+      }
+      if(word.remaining.length == 0 && !word.dieing) {
+        word.dieing = true;
+        if(word.callback) { word.callback(); }
+        window.setTimeout( function() {
+          self.activeWords.splice( $.inArray(word, self.activeWords), 1);
+        }, word.animationTime);
+
+      }
+    }
+  };
+  
 
   return Tutor;
 

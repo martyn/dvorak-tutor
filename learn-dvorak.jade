@@ -29,15 +29,15 @@ html
           $keyMap[text]=$(this).parent();
           $keyMap[text.toUpperCase()]=$(this).parent();
         });
-        $("#entry-area").focus();
         $("#os-label").text(os);
         $("#keyboard-layout").text(keyboardLayout);
-        $("#entry-area").bind("keydown", function(evt) {
+        $(document).bind("keydown", function(evt) {
           var charCode = String.fromCharCode(evt.keyCode);
+          tutor.charPressed(charCode);
           if($keyMap[charCode])
             $keyMap[charCode].addClass("pressed");
         });
-        $("#entry-area").bind("keyup", function(evt) {
+        $(document).bind("keyup", function(evt) {
           var charCode = String.fromCharCode(evt.keyCode);
           if($keyMap[charCode])
             $keyMap[charCode].removeClass("pressed");
@@ -47,7 +47,6 @@ html
       });
   body
     canvas.main
-    input#entry-area(placeholder='Start typing here')
     #keyboard
       .keyrow.toprow
         .key
