@@ -45,6 +45,7 @@ html
         });
         //tutor.rearrangeQwertyToDvorak($keyMap);
         tutor.start($("canvas.main"))
+        $('.dvorak.keyboard').hide();
       });
 
   mixin key(name)
@@ -65,7 +66,7 @@ html
     .keyrow.toprow
       mixin keys(['esc', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'])
 
-  mixin numberrow
+  mixin numberrow(type)
     .keyrow.numberrow
       mixin keyalt('~', '`')
       mixin keyalt('!', '1')
@@ -78,41 +79,62 @@ html
       mixin keyalt('*', '8')
       mixin keyalt('(', '9')
       mixin keyalt(')', '0')
-      mixin keyalt('_', '-')
-      mixin keyalt('+', '=')
+      -if(type == 'dvorak')
+        mixin keyalt('{', '[')
+        mixin keyalt('}', ']')
+      -else
+        mixin keyalt('_', '-')
+        mixin keyalt('+', '=')
       .key.delete
         .alt delete
         .main backspace
 
-  mixin tabrow
+  mixin tabrow(type)
     .keyrow.tabrow
       .key.tab
         .main tab
-      mixin keys(['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'])
-      mixin keyalt('{', '[')
-      mixin keyalt('}', ']')
-      mixin keyalt('|', '\\')
+      -if(type=='dvorak')
+        mixin keyalt('"', "'")
+        mixin keyalt("\<", ',')
+        mixin keyalt('\>', '.')
+        mixin keys(['P','Y','F','G','C','R','L'])
+        mixin keyalt('?', '/')
+        mixin keyalt('+', '=')
+      -else
+        mixin keys(['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'])
+        mixin keyalt('{', '[')
+        mixin keyalt('}', ']')
+        mixin keyalt('|', '\\')
 
-  mixin capslockrow
+  mixin capslockrow(type)
     .keyrow.capslockrow
       .key.capslock
         .main caps lock
-      mixin keys(['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'])
-      mixin keyalt(':', ';')
-      mixin keyalt('"', "'")
+      -if(type=='dvorak')
+        mixin keys(['A','O','E','U','I','D','H','T','N','S'])
+        mixin keyalt('_', '-')
+      -else
+        mixin keys(['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'])
+        mixin keyalt(':', ';')
+        mixin keyalt('"', "'")
 
       .key.enter
         .alt enter
         .main return
 
-  mixin shiftrow
+  mixin shiftrow(type)
     .keyrow.shiftrow
       .key.shift
         .main shift
-      mixin keys(['Z','X','C','V','B','N','M'])
-      mixin keyalt("\<", ',')
-      mixin keyalt('\>', '.')
-      mixin keyalt('?', '/')
+      -if(type=='dvorak')
+        mixin keyalt(':', ';')
+        mixin keys(['Q','J','K','X','B','M','W','V','Z'])
+      -else
+        mixin keys(['Z','X','C','V','B','N','M'])
+        mixin keyalt("\<", ',')
+        mixin keyalt('\>', '.')
+        mixin keyalt('?', '/')
+
       .key.shift
         .main shift
 
@@ -135,9 +157,17 @@ html
     canvas.main
     .qwerty.keyboard
       mixin toprow
-      mixin numberrow
+      mixin numberrow('qwerty')
       mixin tabrow
       mixin capslockrow
       mixin shiftrow
       mixin spacerow
+    .dvorak.keyboard
+      mixin toprow
+      mixin numberrow('dvorak')
+      mixin tabrow('dvorak')
+      mixin capslockrow('dvorak')
+      mixin shiftrow('dvorak')
+      mixin spacerow
+ 
     //script(src='./3rdparty/dvorakator/build/final.js', type='text/javascript')
