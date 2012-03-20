@@ -1,3 +1,4 @@
+!!! 5
 html
   head
     script
@@ -42,199 +43,101 @@ html
           if($keyMap[charCode])
             $keyMap[charCode].removeClass("pressed");
         });
-        tutor.rearrangeQwertyToDvorak($keyMap);
+        //tutor.rearrangeQwertyToDvorak($keyMap);
         tutor.start($("canvas.main"))
       });
+
+  mixin key(name)
+    .key
+      .main=name
+  
+  mixin keys(keys)
+    -each key in keys
+      mixin key(key)
+
+  mixin keyalt(alt, name)
+    .key
+      .alt=alt
+      .main=name
+ 
+
+  mixin toprow
+    .keyrow.toprow
+      mixin keys(['esc', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'])
+
+  mixin numberrow
+    .keyrow.numberrow
+      mixin keyalt('~', '`')
+      mixin keyalt('!', '1')
+      mixin keyalt('@', '2')
+      mixin keyalt('#', '3')
+      mixin keyalt('$', '4')
+      mixin keyalt('%', '5')
+      mixin keyalt('^', '6')
+      mixin keyalt('&', '7')
+      mixin keyalt('*', '8')
+      mixin keyalt('(', '9')
+      mixin keyalt(')', '0')
+      mixin keyalt('_', '-')
+      mixin keyalt('+', '=')
+      .key.delete
+        .alt delete
+        .main backspace
+
+  mixin tabrow
+    .keyrow.tabrow
+      .key.tab
+        .main tab
+      mixin keys(['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'])
+      mixin keyalt('{', '[')
+      mixin keyalt('}', ']')
+      mixin keyalt('|', '\\')
+
+  mixin capslockrow
+    .keyrow.capslockrow
+      .key.capslock
+        .main caps lock
+      mixin keys(['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'])
+      mixin keyalt(':', ';')
+      mixin keyalt('"', "'")
+
+      .key.enter
+        .alt enter
+        .main return
+
+  mixin shiftrow
+    .keyrow.shiftrow
+      .key.shift
+        .main shift
+      mixin keys(['Z','X','C','V','B','N','M'])
+      mixin keyalt("\<", ',')
+      mixin keyalt('\>', '.')
+      mixin keyalt('?', '/')
+      .key.shift
+        .main shift
+
+  mixin spacerow
+    .keyrow.spacerow
+      .key.ctrl
+        .main ctrl
+      .key.alt
+        .main alt
+      .key.space
+        .main space
+      .key.ralt
+        .main alt
+      .key.rctrl
+        .main ctrl
+
+
+
   body
     canvas.main
-    #keyboard
-      .keyrow.toprow
-        .key
-          .main esc
-        .key
-          .main F1
-        .key
-          .main F2
-        .key
-          .main F3
-        .key
-          .main F4
-        .key
-          .main F5
-        .key
-          .main F6
-
-        .key
-          .main F7
-        .key
-          .main F8
-        .key
-          .main F9
-        .key
-          .main F10
-        .key
-          .main F11
-        .key
-          .main F12
-
-      .keyrow.numberrow
-        .key
-          .alt ~
-          .main `
-        .key
-          .alt !
-          .main 1
-        .key
-          .alt @
-          .main 2
-        .key
-          .alt #
-          .main 3
-
-        .key
-          .alt $
-          .main 4
-        .key
-          .alt %
-          .main 5
-        .key
-          .alt ^
-          .main 6
-        .key
-          .alt &
-          .main 7
-
-        .key
-          .alt *
-          .main 8
-        .key
-          .alt (
-          .main 9
-        .key
-          .alt )
-          .main 0
-        .key
-          .alt _
-          .main -
-
-        .key
-          .alt +
-          .main =
-        .key.delete
-          .alt delete
-          .main backspace
-
-      .keyrow.tabrow
-        .key.tab
-          .main tab
-        .key
-          .main Q
-        .key
-          .main W
-        .key
-          .main E
-        .key
-          .main R
-        .key
-          .main T
-        .key
-          .main Y
-
-        .key
-          .main U
-
-        .key
-          .main I
-        .key
-          .main O
-        .key
-          .main P
-        .key
-          .alt {
-          .main [
-        .key
-          .alt }
-          .main ]
-        .key
-          .alt |
-          .main \\
-
-      .keyrow.capslockrow
-        .key.capslock
-          .main caps lock
-        .key
-          .main A
-        .key
-          .main S
-        .key
-          .main D
-        .key
-          .main F
-        .key
-          .main G
-        .key
-          .main H
-
-        .key
-          .main J
-
-        .key
-          .main K
-        .key
-          .main L
-        .key
-          .alt :
-          .main ;
-
-        .key
-          .alt "
-          .main '
-
-        .key.enter
-          .alt enter
-          .main return
-
-      .keyrow.shiftrow
-        .key.shift
-          .main shift
-        .key
-          .main Z
-        .key
-          .main X
-        .key
-          .main C
-        .key
-          .main V
-        .key
-          .main B
-        .key
-          .main N
-
-        .key
-          .main M
-
-        .key
-          .alt \<
-          .main ,
-        .key
-          .alt \>
-          .main .
-        .key
-          .alt ?
-          .main /
-        .key.shift
-          .main shift
-
-      .keyrow.spacerow
-        .key.ctrl
-          .main ctrl
-        .key.alt
-          .main alt
-        .key.space
-          .main space
-        .key.ralt
-          .main alt
-        .key.rctrl
-          .main ctrl
-
+    .qwerty.keyboard
+      mixin toprow
+      mixin numberrow
+      mixin tabrow
+      mixin capslockrow
+      mixin shiftrow
+      mixin spacerow
     //script(src='./3rdparty/dvorakator/build/final.js', type='text/javascript')
