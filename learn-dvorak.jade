@@ -27,8 +27,12 @@ html
         //var tutor = new Tutor();
         $('.key .main, .key .alt').each(function() {
           var text = $(this).text();
-          $keyMap[text]=$(this).parent();
-          $keyMap[text.toUpperCase()]=$(this).parent();
+          text = text.toUpperCase();
+          if($keyMap[text]) {
+            $keyMap[text] = $.merge($keyMap[text], $(this).parent());
+          } else {
+            $keyMap[text]=$(this).parent();
+          }
         });
         $("#os-label").text(os);
         $("#keyboard-layout").text(keyboardLayout);
