@@ -88,6 +88,9 @@ class Tutor
     a.insertAfter(marker)
     marker.remove()
 
+  start: () ->
+    $("#main").html("Welcome mere mortal to the magical world of dvoria.")
+
   # this is less straightforward than initially thought
   rearrangeQwertyToDvorak : (keys) ->
     for from, to of @dvorakMap
@@ -95,21 +98,21 @@ class Tutor
         console.log("Swapping " + from + " to " + to);
         #this.swap(keys[from], keys[to])
 
-  start : ($canvas) ->
-    self = this
-    canvas = $canvas[0]
-    resize = ->
-      canvas.width=$canvas.width()
-      canvas.height=$canvas.height()
-      self.redraw(canvas)
-    $(window).resize(resize)
-    resize()
+  charPressed: (char) ->
+    awaiting = $(".keyword")
+    awaiting.each( (i, keyword) -> 
+      unfinished = $(keyword).find('.unfinished')
+      finished = $(keyword).find('.finished')
 
-  redraw : (canvas) ->
-    context = canvas.getContext('2d')
-    x = 150
-    y = 100
+      if(char.toUpperCase() != unfinished.html()[0].toUpperCase())
+        return
 
-    context.font = "40pt Calibri"
-    context.fillStyle = "#0000ff"
-    context.fillText("Hello World!", x, y)
+      finished.html(finished.html() + unfinished.html()[0])
+      unfinished.html(unfinished.html()[1..-1])
+
+      if(unfinished.text() == "")
+        eval($(keyword).attr('data-oncomplete'))
+        $(keyword).addClass('.dieing')
+        $(keyword).removeClass('.keyword')
+      )
+    

@@ -2,11 +2,11 @@
 html
   head
     script
-      //var tutor = new Tutor();
     script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', type='text/javascript')
     script(src='tutor.js', type='text/javascript')
     link(rel='stylesheet', href='tutor.css') 
     script
+      var tutor = new Tutor();
       function getOS() {
         var OSName="Unknown OS";
         if (navigator.appVersion.indexOf("Win")!==-1) OSName="Windows";
@@ -24,7 +24,7 @@ html
         var keyboardLayout = getKeyboardLayout();
         var $keyMap = {};
         var self = this;
-        var tutor = new Tutor();
+        //var tutor = new Tutor();
         $('.key .main, .key .alt').each(function() {
           var text = $(this).text();
           $keyMap[text]=$(this).parent();
@@ -44,7 +44,6 @@ html
             $keyMap[charCode].removeClass("pressed");
         });
         //tutor.rearrangeQwertyToDvorak($keyMap);
-        tutor.start($("canvas.main"))
         $('.dvorak.keyboard').hide();
       });
 
@@ -154,7 +153,16 @@ html
 
 
   body
-    canvas.main
+    #main
+      #welcome.keywords
+        | Welcome to Dvoria!
+      #welcome2.keywords
+        | Type '
+        span.keyword(data-oncomplete='tutor.start()') 
+          span.finished 
+          span.unfinished go
+        | ' to begin!
+        
     .qwerty.keyboard
       mixin toprow
       mixin numberrow('qwerty')
