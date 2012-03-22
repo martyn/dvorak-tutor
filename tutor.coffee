@@ -89,7 +89,19 @@ class Tutor
     marker.remove()
 
   start: () ->
-    $("#main").html("Welcome mere mortal to the magical world of dvoria.")
+    $("#main").html("<div class='keywords'></div>")
+    this.addWord(i) for i in [0...10]
+
+  addWord: (index) ->
+    word = $("<div id='word"+index+"' class='keyword' data-oncomplete='tutor.wordDone("+index+");'><span class='finished'></span><span class='unfinished'>Word</span></div>")
+    $(".keywords").append(word)
+    word.css("top", Math.floor(index/5)*50)
+    word.css("left", (index%5)*100)
+  
+
+  wordDone : (index) ->
+    $("#word"+index).addClass("demolish")
+    console.log("word done: " + index)
 
   # this is less straightforward than initially thought
   rearrangeQwertyToDvorak : (keys) ->

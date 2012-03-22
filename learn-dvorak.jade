@@ -159,13 +159,13 @@ html
   body
     #main
       #welcome.keywords
-        | Welcome to Dvoria!
-      #welcome2.keywords
-        | Type '
-        span.keyword(data-oncomplete='tutor.start()') 
-          span.finished 
-          span.unfinished go
-        | ' to begin!
+        p Welcome to Dvoria!
+        p 
+          | Type '
+          span.keyword(data-oncomplete='tutor.start()') 
+            span.finished 
+            span.unfinished go
+          span.space ' to begin!
         
     .qwerty.keyboard
       mixin toprow
